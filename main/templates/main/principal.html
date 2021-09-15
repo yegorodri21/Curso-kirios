@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tinymce/css/prism.css' %}"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    >
+
+    <title>Document</title>
+</head>
+<body>
+ <nav>
+        <div class="nav-wrapper #8e24aa purple darken-1">
+          <a href="#" class="brand-logo">Cursos</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="#">Inicio</a></li> 
+            <li><a href="#">Regitro</a></li>
+            <li><a href="#">Entrar</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container">
+          <br>
+
+   {% block content %}    {%endblock%}</div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="{% static 'tinymce/js/prism.js' %}"></script>
+</body>
+</html>
