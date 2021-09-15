@@ -13,22 +13,17 @@
     <title>Document</title>
 </head>
 <body>
- <nav>
-        <div class="nav-wrapper #8e24aa purple darken-1">
-          <a href="#" class="brand-logo">Cursos</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Inicio</a></li> 
-            <li><a href="#">Regitro</a></li>
-            <li><a href="#">Entrar</a></li>
-          </ul>
-        </div>
-      </nav>
+ 
+  {% include "main/includes/navbar.html" %}
 
       <div class="container">
           <br>
 
    {% block content %}    {%endblock%}</div>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+ {% include "main/includes/mensajes.html" %}
+
 <script src="{% static 'tinymce/js/prism.js' %}"></script>
 </body>
 </html>

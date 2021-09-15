@@ -1,0 +1,15 @@
+<nav>
+    <div class="nav-wrapper #8e24aa purple darken-1">
+      <a href="/" class="brand-logo">Cursos</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/">Inicio</a></li> 
+        {% if user.is_authenticated %}
+        <li><a href="/user">{{user.username}}</a></li>
+        <li><a href="/logout">Salir</a></li>
+        {% else %}
+        <li><a href="/registro">Regitro</a></li>
+        <li><a href="/login">Entrar</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
