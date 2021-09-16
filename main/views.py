@@ -1,9 +1,11 @@
-from django import forms
+from main.form import NuevoCurso
 import main
+from .models import Curso
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .models import Curso
 
@@ -55,3 +57,21 @@ def login_request(request):
 
     form= AuthenticationForm ()
     return render(request, "main/login.html",{"form":form})
+
+#@login_required
+#def curso_form(request):
+    if request.method == 'GET':
+        form = NuevoCurso
+        contexto = {
+        'form' : form
+        }
+    else:
+        form = NuevoCurso(request.POST, request.FILES)
+        contexto = {
+        'form' : form
+        }
+        if form.is_valid():
+               form.save()
+               return redirect('main:homepage')
+
+    return render(request,  "main/cursos.html", contexto)
