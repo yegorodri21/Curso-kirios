@@ -1,10 +1,10 @@
 <nav>
     <div class="nav-wrapper #8e24aa purple darken-1">
-      <a href="/" class="brand-logo">Cursos</a>
+      <a href="/" class="brand-logo center" >Cursos</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/">Inicio</a></li> 
         {% if user.is_authenticated %}
-        <li><a href ="/">Nuevo Curso</a></li>
+        <li><a href ="/curso_form">Nuevo Curso</a></li>
         <li><a href="/user">{{user.username}}</a></li>
         <li><a href="/logout">Salir</a></li>
         {% else %}

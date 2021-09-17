@@ -6,7 +6,7 @@ class Curso(models.Model):
     curso_contenido=models.TextField()
     curso_publicado=models.DateTimeField(
         "fecha de publicacion", default=datetime.now())
-    foto=models.ImageField(upload_to='album')
+    foto=models.ImageField(upload_to='albums', null=True)
 
     def __str__(self):
         return self.curso_titulo

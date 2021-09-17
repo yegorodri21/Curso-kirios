@@ -1,11 +1,10 @@
 {% extends "main/principal.html" %} 
 {% block content %}   
 
-     <form action="/your-name/" method="POST">
+     <form action="" method="POST">
           {% csrf_token %}
           {{form.as_p}}
-          <button type ="sumit">Guardar</button>
+          <button class="btn" type ="sumit">Guardar</button>
      </form>
-
 
 {% endblock %}

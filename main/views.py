@@ -59,7 +59,7 @@ def login_request(request):
     return render(request, "main/login.html",{"form":form})
 
 #@login_required
-#def curso_form(request):
+def curso_form(request):
     if request.method == 'GET':
         form = NuevoCurso
         contexto = {
