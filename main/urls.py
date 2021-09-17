@@ -9,4 +9,5 @@ urlpatterns =[
     path ('registro/',views.registro, name="registro"),
     path ('logout/', views.logout_request, name="logout"),
     path ('login/', views.login_request, name ="login"),
+    path ('curso_form/', views.curso_form,name="curso_form"),
 ]
