@@ -1,3 +1,5 @@
+from django.core.files.base import File
+from django.http import request
 from main.form import NuevoCurso
 import main
 from .models import Curso
@@ -58,7 +60,6 @@ def login_request(request):
     form= AuthenticationForm ()
     return render(request, "main/login.html",{"form":form})
 
-#@login_required
 def curso_form(request):
     if request.method == 'GET':
         form = NuevoCurso
@@ -71,7 +72,26 @@ def curso_form(request):
         'form' : form
         }
         if form.is_valid():
-               form.save()
+               curso_form=form.save()
                return redirect('main:homepage')
 
     return render(request,  "main/cursos.html", contexto)
+
+def resgistroM(request):
+    form = UserCreationForm(request.POST)
+
+    if request.method=='POST':
+
+        if form.is_valid():
+            materia=form.save()
+            registroM=form.cleaned_data.get('Materia')
+            messages.success(request, f"Materia registrada : {registroM}")
+            login(request, materia)
+            messages.info(request, f"Haz sido logeado como {registroM}")
+            return redirect("main:homepage")
+    else:
+        for msg in form.error_messages:
+            messages.error(request, f"{msg}: {form.error_messages[msg]}")
+
+        form = UserCreationForm
+        return render (request, "main/registroM.html", {"form":form})

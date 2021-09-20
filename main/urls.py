@@ -1,5 +1,5 @@
 from typing import ValuesView
-from django.urls import path, include
+from django.urls import path
 from.import views 
 
 app_name='main'
@@ -10,4 +10,6 @@ urlpatterns =[
     path ('logout/', views.logout_request, name="logout"),
     path ('login/', views.login_request, name ="login"),
     path ('curso_form/', views.curso_form,name="curso_form"),
+   # path ('materias/', views.materias,name="materias"),
+    path ('registroM/', views.resgistroM, name="registroM"),
 ]

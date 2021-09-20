@@ -1,0 +1,10 @@
+{% extends "main/principal.html" %} 
+{% block content %}   
+
+     <form action="" method="POST">
+          {% csrf_token %}
+          {{form.as_p}}
+          <button class="btn" type ="sumit">Guardar</button>
+     </form>
+
+{% endblock %}
