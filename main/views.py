@@ -77,7 +77,7 @@ def curso_form(request):
 
     return render(request,  "main/cursos.html", contexto)
 
-def resgistroM(request):
+def registroM(request):
     form = UserCreationForm(request.POST)
 
     if request.method=='POST':
@@ -95,3 +95,4 @@ def resgistroM(request):
 
         form = UserCreationForm
         return render (request, "main/registroM.html", {"form":form})
+

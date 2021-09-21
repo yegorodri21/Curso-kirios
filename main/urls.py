@@ -10,6 +10,6 @@ urlpatterns =[
     path ('logout/', views.logout_request, name="logout"),
     path ('login/', views.login_request, name ="login"),
     path ('curso_form/', views.curso_form,name="curso_form"),
-   # path ('materias/', views.materias,name="materias"),
-    path ('registroM/', views.resgistroM, name="registroM"),
+#    path ('materias/', views.materias,name="materias"),
+    path ('registroM/', views.registroM, name="registroM"),
 ]
