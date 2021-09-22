@@ -94,5 +94,23 @@ def registroM(request):
             messages.error(request, f"{msg}: {form.error_messages[msg]}")
 
         form = UserCreationForm
-        return render (request, "main/registroM.html", {"form":form})
+  
+    return render (request, "main/registroM.html", {"form":form})
+def materias(request):
+    form = UserCreationForm(request.POST)
 
+    if request.method=='POST':
+
+        if form.is_valid():
+            materia=form.save()
+            registroM=form.cleaned_data.get('Materia')
+            messages.success(request, f"Materia registrada : {registroM}")
+            login(request, materia)
+            messages.info(request, f"Haz sido logeado como {registroM}")
+            return redirect("main:homepage")
+    else:
+        for msg in form.error_messages:
+            messages.error(request, f"{msg}: {form.error_messages[msg]}")
+
+        form = UserCreationForm
+    return render (request, "main/registroM.html", {"form":form})

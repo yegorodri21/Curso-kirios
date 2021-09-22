@@ -2,9 +2,41 @@
 {% block content %}   
 
      <form action="" method="POST">
-          {% csrf_token %}
-          {{form.as_p}}
-          <button class="btn" type ="sumit">Guardar</button>
+          <div class="row">
+          <form class="col s12">
+               <div class="row">
+               <div class="input-field col s6">
+                    <input id="nombre" type="text" class="validate">
+                    <label for="nombre">Nombre</label>
+               </div>
+               <div class="input-field col s6">
+                    <input id="apellido" type="text" class="validate">
+                    <label for="apellido">Apellido</label>
+               </div>
+               </div>
+               <div class="row">
+               <div class="input-field col s12">
+                    <input id="cedula" type="password" class="validate">
+                    <label for="cedula">Cedula</label>
+               </div>
+               </div>
+               <div class="row">
+               <div class="input-field col s12">
+                    <input disabled value="Materia asignada" id="disabled" type="text" class="validate">
+                    <label for="materia">Materia</label>
+                    {% comment %} {{cur.curso_titulo}} {% endcomment %}
+               </div>
+               </div>
+               <div class="row">
+               <div class="input-field col s12">
+                    <input id="email" type="email" class="validate">
+                    <label for="email">Email</label>
+               </div>
+               </div>
+                         <center><button class="btn" type ="sumit">Guardar</button></center>
+          </form>
+          </div>
+        
      </form>
 
 {% endblock %}

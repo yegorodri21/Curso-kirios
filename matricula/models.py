@@ -4,12 +4,14 @@ from datetime import datetime
 # Create your models here.
 
 class registroM (models.Model):
-    Materia=models.CharField(max_length=200)
     Nombre=models.TextField()
     Apellido=models.TextField()
+    Cedula=models.DecimalField()
+    Materia=models.CharField(max_length=200)
     Precio=models.CharField(max_length=50)
     Fecha_matricula=models.DateTimeField(
         "fecha de matricula", default=datetime.now())
+    Correo=models.models.EmailField(_(""), max_length=254)
 
     def __str__(self):
-        return self.curso_titulo
+        return self.Cedula
