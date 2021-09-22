@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.forms import widgets
 from .models import Curso
 from tinymce.widgets import TinyMCE
+from django.utils.html import format_html
 from django.db import models
 
 # Register your models here.
@@ -22,5 +23,5 @@ class CursoAdmin(admin.ModelAdmin):
     #     models.TextField:{'widget': TinyMCE()}
     # }
     def foto(self, obj):
-        return "<img src="+ obj.foto.url+"/>"
+        return format_html('<img src={} width="130" height="100"/>', obj.image.url)
 admin.site.register(Curso,CursoAdmin)
