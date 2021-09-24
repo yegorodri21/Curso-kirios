@@ -12,10 +12,21 @@ class Curso(models.Model):
         return self.curso_titulo
 
 class Registrom (models.Model):
-    nombre=models.TextField(max_length=200)
-    apellido=models.TextField(max_length=200)
+    nombre=models.CharField(max_length=200)
+    apellido=models.CharField(max_length=200)
     cedula=models.DecimalField(max_digits=15, decimal_places=14, default=0)
+    # cedula=models.IntegerField('max_digits'==15,'default'==0)
     materia=models.CharField(max_length=200)
+    fecha=models.DateTimeField(
+        "fecha de matricula", default=datetime.now())
+
+    def __str__(self):
+        return self.Cedula
+
+class Matriculados (models.Model):
+    materia=models.CharField(max_length=200)
+    cedula=models.DecimalField(max_digits=15, decimal_places=14, default=0)
+    # cedula=models.IntegerField('max_digits'==15,'default'==0)
     fecha=models.DateTimeField(
         "fecha de matricula", default=datetime.now())
 

@@ -1,5 +1,5 @@
 from django import forms
-from  .models import Curso, Registrom
+from  .models import Curso, Registrom, Matriculados
 
 
 class NuevoCurso(forms.ModelForm):
@@ -15,6 +15,16 @@ class UserForm(forms.ModelForm):
             'apellido',
             'cedula',
             'materia',
+            'fecha',
+
+        ]
+
+class Matriculados(forms.ModelForm):
+    class Meta:
+        model = Matriculados
+        fields = [
+            'materia',
+            'cedula',
             'fecha',
 
         ]

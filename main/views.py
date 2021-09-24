@@ -1,6 +1,6 @@
 from django.core.files.base import File
 from django.http import request
-from main.form import NuevoCurso, UserForm
+from main.form import NuevoCurso, UserForm, Matriculados
 import main
 from .models import Curso
 from django.shortcuts import render,redirect
@@ -82,34 +82,26 @@ def registroM(request):
     if request.method=='POST':
 
         if form.is_valid():
-            materia=form.save()
-            registroM=form.cleaned_data.get('Materia')
-            messages.success(request, f"Materia registrada : {registroM}")
-            login(request, materia)
-            messages.info(request, f"Haz sido logeado como {registroM}")
+            estudiante=form.save()
+            registroM=form.cleaned_data.get('Estudiante')
+            messages.success(request, f"Estudiante registrado : {registroM}")
             return redirect("main:homepage")
     else:
-        for msg in form.error_messages:
-            messages.error(request, f"{msg}: {form.error_messages[msg]}")
-
+        
         form = UserForm
   
     return render (request, "main/registroM.html", {"form":form})
 def materias(request):
-    form = UserCreationForm(request.POST)
+    form = Matriculados(request.POST)
 
     if request.method=='POST':
 
         if form.is_valid():
             materia=form.save()
-            registroM=form.cleaned_data.get('Materia')
-            messages.success(request, f"Materia registrada : {registroM}")
-            login(request, materia)
-            messages.info(request, f"Haz sido logeado como {registroM}")
+            materias=form.cleaned_data.get('Materia')
+            messages.success(request, f"Materia registrada : {materias}")
             return redirect("main:homepage")
     else:
-        for msg in form.error_messages:
-            messages.error(request, f"{msg}: {form.error_messages[msg]}")
 
-        form = UserCreationForm
-    return render (request, "main/registroM.html", {"form":form})
+        form = Matriculados
+    return render (request, "main/materias.html", {"form":form})
