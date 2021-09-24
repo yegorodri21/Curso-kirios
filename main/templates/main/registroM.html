@@ -1,4 +1,14 @@
-{% extends "main/principal.html" %} 
+{% extends "main/principal.html" %} {% block content %}   
+
+<form action= "" method ="POST">
+     {% csrf_token %} {{form.as_p}}
+     <button class="btn" type="submit">Registrar</button>
+</form>
+
+Si ya tienes una cuenta, ve a <a href="/login">Entrar</a>
+{% endblock %}
+
+{% comment %} {% extends "main/principal.html" %} 
 {% block content %}   
      <form action="" method="POST">
           <div class="row">
@@ -23,7 +33,6 @@
                <div class="input-field col s12">
                     <input disabled value="Materia asignada" id="disabled" type="text" class="validate">
                     <label for="materia">Materia</label>
-                    {% comment %} {{cur.curso_titulo}} {% endcomment %}
                </div>
                </div>
                <div class="row">
@@ -38,4 +47,4 @@
         
      </form>
 
-{% endblock %}
+{% endblock %} {% endcomment %}

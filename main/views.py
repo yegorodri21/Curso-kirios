@@ -1,6 +1,6 @@
 from django.core.files.base import File
 from django.http import request
-from main.form import NuevoCurso
+from main.form import NuevoCurso, UserForm
 import main
 from .models import Curso
 from django.shortcuts import render,redirect
@@ -15,7 +15,6 @@ from .models import Curso
 def homepage (request):
     return render (request, "main/inicio.html", {"cursos": Curso.objects.all})
 
-
 def registro (request):
     form = UserCreationForm(request.POST)
     
@@ -27,12 +26,12 @@ def registro (request):
             login(request, usuario)
             messages.info(request, f"Haz sido logeado como {nombre_usuario}")
             return redirect("main:homepage")
-    else:
-        for msg in form.error_messages:
-            messages.error(request, f"{msg}: {form.error_messages[msg]}")
+        else:
+            for msg in form.error_messages:
+                messages.error(request, f"{msg}: {form.error_messages[msg]}")
 
-        form = UserCreationForm
-        return render (request, "main/registro.html", {"form":form})
+    form = UserCreationForm()
+    return render(request, "main/registro.html", {"form":form})
         
 def logout_request(request):
     logout (request)
@@ -78,7 +77,7 @@ def curso_form(request):
     return render(request,  "main/cursos.html", contexto)
 
 def registroM(request):
-    form = UserCreationForm(request.POST)
+    form = UserForm(request.POST)
 
     if request.method=='POST':
 
@@ -93,7 +92,7 @@ def registroM(request):
         for msg in form.error_messages:
             messages.error(request, f"{msg}: {form.error_messages[msg]}")
 
-        form = UserCreationForm
+        form = UserForm
   
     return render (request, "main/registroM.html", {"form":form})
 def materias(request):
