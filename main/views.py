@@ -30,7 +30,7 @@ def registro (request):
             for msg in form.error_messages:
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
 
-    form = UserCreationForm()
+    form = UserCreationForm
     return render(request, "main/registro.html", {"form":form})
         
 def logout_request(request):
@@ -91,6 +91,7 @@ def registroM(request):
         form = UserForm
   
     return render (request, "main/registroM.html", {"form":form})
+
 def materias(request):
     form = Matriculados(request.POST)
 
@@ -105,3 +106,12 @@ def materias(request):
 
         form = Matriculados
     return render (request, "main/materias.html", {"form":form})
+
+# def materias(request, id):
+#     curso = Curso.objects.get(id=id)
+#     materia = materias.objects.filter(curso = curso)
+#     contexto = {
+#         'curso': curso,
+#         'materia': materia, 
+#     }
+#     return render(request, 'main/materias.html', contexto)
