@@ -99,7 +99,7 @@ def registro_create(request):
 def modificar(request, id):
 
         registro = get_object_or_404(RegistromForm, id =id)
-        estudiante= 
+        # estudiante= 
         contexto={
             'form_registro': form_registro(instance=registro),
             'form_estudiante': form_estudiante(instance=estudiante),
