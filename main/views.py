@@ -99,16 +99,10 @@ def registro_create(request):
 def modificar(request, id):
 
         registro = get_object_or_404(RegistromForm, id =id)
-        data={
-            'form': form_registro(instance=registro)
-        }
-
-        if request.method=='POST':
-            formulario
-    
+        estudiante= 
         contexto={
-            'form_registro': form_registro,
-            'form_estudiante': form_estudiante,
+            'form_registro': form_registro(instance=registro),
+            'form_estudiante': form_estudiante(instance=estudiante),
         }
         form = RegistromForm()
   
