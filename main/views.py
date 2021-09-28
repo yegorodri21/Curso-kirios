@@ -1,9 +1,9 @@
 from django.core.files.base import File
 from django.http import request
-from main.form import NuevoCurso, UserForm, Matriculados
+from main.form import NuevoCurso, RegistromForm
 import main
 from .models import Curso
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -15,23 +15,23 @@ from .models import Curso
 def homepage (request):
     return render (request, "main/inicio.html", {"cursos": Curso.objects.all})
 
-def registro (request):
-    form = UserCreationForm(request.POST)
-    
-    if request.method=="POST":
-        if form.is_valid():
-            usuario=form.save()
-            nombre_usuario=form.cleaned_data.get('username')
-            messages.success(request, f"Nueva cuenta creada : {nombre_usuario}")
-            login(request, usuario)
-            messages.info(request, f"Haz sido logeado como {nombre_usuario}")
-            return redirect("main:homepage")
-        else:
-            for msg in form.error_messages:
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")
+def registro(request):
+     
+    if request.method =="POST":
+          form = UserCreationForm(request.POST)
+          if form.is_valid():
+               usuario = form.save()
+               nombre_usuario = form.cleaned_data.get('username')
+               messages.success(request, f"Nueva Cuenta Creada: {nombre_usuario}")
+               login(request, usuario)
+               messages.info(request, f"Has sido logeado como: {nombre_usuario}")
+               return redirect("main:homepage")
+          else:
+               for msg in form.error_messages:
+                    messages.error(request, f"{msg}: form.error_messages[msg]")
 
-    form = UserCreationForm
-    return render(request, "main/registro.html", {"form":form})
+    form = UserCreationForm()
+    return render(request, "main/registro.html", {"form": form})
         
 def logout_request(request):
     logout (request)
@@ -76,42 +76,40 @@ def curso_form(request):
 
     return render(request,  "main/cursos.html", contexto)
 
-def registroM(request):
-    form = UserForm(request.POST)
+def registro_create(request):
 
     if request.method=='POST':
+        form_registro = RegistromForm(request.POST)
 
         if form.is_valid():
             estudiante=form.save()
-            registroM=form.cleaned_data.get('Estudiante')
+            RegistromForm=form_registro.cleaned_data.get('Estudiante')
             messages.success(request, f"Estudiante registrado : {registroM}")
             return redirect("main:homepage")
     else:
-        
-        form = UserForm
+        contexto={
+            'form_registro': form_registro,
+            'form_estudiante': form_estudiante,
+        }
+        form = RegistromForm()
   
-    return render (request, "main/registroM.html", {"form":form})
+    return render(request, "main/registroM.html", contexto)
 
-def materias(request):
-    form = Matriculados(request.POST)
 
-    if request.method=='POST':
+def modificar(request, id):
 
-        if form.is_valid():
-            materia=form.save()
-            materias=form.cleaned_data.get('Materia')
-            messages.success(request, f"Materia registrada : {materias}")
-            return redirect("main:homepage")
-    else:
+        registro = get_object_or_404(RegistromForm, id =id)
+        data={
+            'form': form_registro(instance=registro)
+        }
 
-        form = Matriculados
-    return render (request, "main/materias.html", {"form":form})
-
-# def materias(request, id):
-#     curso = Curso.objects.get(id=id)
-#     materia = materias.objects.filter(curso = curso)
-#     contexto = {
-#         'curso': curso,
-#         'materia': materia, 
-#     }
-#     return render(request, 'main/materias.html', contexto)
+        if request.method=='POST':
+            formulario
+    
+        contexto={
+            'form_registro': form_registro,
+            'form_estudiante': form_estudiante,
+        }
+        form = RegistromForm()
+  
+    return render(request, "main/registroM.html", contexto)
