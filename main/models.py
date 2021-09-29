@@ -23,5 +23,3 @@ class Registrom (models.Model):
 
     def __str__(self):
         return '%s %s' % (self.cedula, self.fecha)
-
-

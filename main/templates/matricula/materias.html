@@ -1,0 +1,34 @@
+{% extends "main/principal.html" %}
+{% block content %}
+
+<h3 id="tittle_pagina">Lista de Estudiantes Registrados {{ curso }} </h3>
+
+<table class="striped">
+    <thead class="card teal purple darken-1">
+        <tr class="card-content white-text">    
+            <th>ID</th>  
+            <th>Nombres</th>  
+            <th>Apellidos</th>  
+            <th>Fecha de Inscripcion</th>    
+            <th>Curso Inscrito</th>    
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for est in Materias %}
+
+        <tr>  
+            <td>{{est.id}}</td>    
+            <td>{{est.nombres}}</td> 
+            <td>{{est.apellidos}}</td>
+            <td>{{est.fecha_inscripcion}}</td>    
+            <td>{{est.curso.curso_titulo}}</td>
+            <td><a href="{% url 'modificar' est.id %}">Modificar</a>   <a href="{% url 'eliminar' est.id %}">Eliminar</a></td>
+    
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>
+{% endblock %}
