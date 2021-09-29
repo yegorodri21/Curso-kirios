@@ -76,34 +76,34 @@ def curso_form(request):
 
     return render(request,  "main/cursos.html", contexto)
 
-def registro_create(request):
+# def registro_create(request):
 
-    if request.method=='POST':
-        form_registro = RegistromForm(request.POST)
+#     if request.method=='POST':
+#         form_registro = RegistromForm(request.POST)
 
-        if form.is_valid():
-            estudiante=form.save()
-            RegistromForm=form_registro.cleaned_data.get('Estudiante')
-            messages.success(request, f"Estudiante registrado : {registroM}")
-            return redirect("main:homepage")
-    else:
-        contexto={
-            'form_registro': form_registro,
-            'form_estudiante': form_estudiante,
-        }
-        form = RegistromForm()
+#         if form.is_valid():
+#             estudiante=form.save()
+#             RegistromForm=form_registro.cleaned_data.get('Estudiante')
+#             messages.success(request, f"Estudiante registrado : {registroM}")
+#             return redirect("main:homepage")
+#     else:
+#         contexto={
+#             'form_registro': form_registro,
+#             'form_estudiante': form_estudiante,
+#         }
+#         form = RegistromForm()
   
-    return render(request, "main/registroM.html", contexto)
+#     return render(request, "main/registroM.html", contexto)
 
 
-def modificar(request, id):
+# def modificar(request, id):
 
-        registro = get_object_or_404(RegistromForm, id =id)
-        # estudiante= 
-        contexto={
-            'form_registro': form_registro(instance=registro),
-            'form_estudiante': form_estudiante(instance=estudiante),
-        }
-        form = RegistromForm()
+#         registro = get_object_or_404(RegistromForm, id =id)
+#         # estudiante= 
+#         contexto={
+#             'form_registro': form_registro(instance=registro),
+#             'form_estudiante': form_estudiante(instance=estudiante),
+#         }
+#         form = RegistromForm()
   
-        return render(request, "main/registroM.html", contexto)
+#         return render(request, "main/registroM.html", contexto)
