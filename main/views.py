@@ -1,6 +1,9 @@
+from django import forms
 from django.core.files.base import File
+from django.forms.forms import Form
 from django.http import request
-from main.form import NuevoCurso, RegistromForm
+from main.form import NuevoCurso, RegistromForm, Usuario
+from .models import Registrom
 import main
 from .models import Curso
 from django.shortcuts import get_object_or_404, render,redirect
@@ -76,34 +79,65 @@ def curso_form(request):
 
     return render(request,  "main/cursos.html", contexto)
 
-# def registro_create(request):
+def registro_create(request, pk):
 
-#     if request.method=='POST':
-#         form_registro = RegistromForm(request.POST)
-
-#         if form.is_valid():
-#             estudiante=form.save()
-#             RegistromForm=form_registro.cleaned_data.get('Estudiante')
-#             messages.success(request, f"Estudiante registrado : {registroM}")
-#             return redirect("main:homepage")
-#     else:
-#         contexto={
-#             'form_registro': form_registro,
-#             'form_estudiante': form_estudiante,
-#         }
-#         form = RegistromForm()
+    user_form = Usuario(prefix='form_user')
+    registro_form = RegistromForm(prefix='form_registro') 
   
-#     return render(request, "main/registroM.html", contexto)
+    contexto = {
+        'user_form':Usuario,
+        'registro_form':RegistromForm
+       
+    }
 
+    if request.method == 'POST':
+        user_form = Usuario(request.POST, prefix='form_registro')
+        registro_form = RegistromForm(request.POST, prefix='form_inscripcion')
+        
+        if user_form.is_valid() and registro_form.is_valid():
+            estudiante = user_form.save(commit=False)
+            estudiante.user = request.user
+            estudiante.save()
+            curso = Curso.objects.get(pk = pk)
+            matricula = registro_form.save(commit=False)
+            matricula.curso = curso
+            matricula.estudiante = estudiante
+            matricula.save()
+            return redirect('inscripciones:lista_estudiantes')
+        else:
+            print('Error en los forms')
+            print(registro_form.errors)
+            messages.error(request, user_form.errors)
+            messages.error(request, registro_form.errors)
+            
+    return render(request,'matricula/registroM.html', contexto) 
 
-# def modificar(request, id):
+    # if request.method=='POST':
+    #     registro = RegistromForm(request.POST)
 
-#         registro = get_object_or_404(RegistromForm, id =id)
-#         # estudiante= 
-#         contexto={
-#             'form_registro': form_registro(instance=registro),
-#             'form_estudiante': form_estudiante(instance=estudiante),
-#         }
-#         form = RegistromForm()
+    #     if forms.is_valid():
+    #         estudiante=Form.save()
+    #         RegistromForm=form_registro.cleaned_data.get('Estudiante')
+    #         messages.success(request, f"Estudiante registrado : {registroM}")
+    #         return redirect("main:homepage")
+    # else:
+    #     contexto={
+    #         'form_registro': form_registro,
+    #         'form_estudiante': form_estudiante,
+    #     }
+    #     form = RegistromForm()
   
-#         return render(request, "main/registroM.html", contexto)
+    # return render(request, "matricula/registroM.html", contexto)
+
+
+def modificar(request, id):
+
+        registro = get_object_or_404(Registrom, id =id)
+        # estudiante= 
+        contexto={
+            'form_registro': RegistromForm(instance=registro),
+            'form_estudiante': form_estudiante(instance=estudiante),
+        }
+        form = RegistromForm()
+  
+        return render(request, "matricula/registroM.html", contexto)
