@@ -11,5 +11,5 @@ urlpatterns =[
     path ('login/', views.login_request, name ="login"),
     path ('curso_form/', views.curso_form,name="curso_form"),
     # path ('materias/', views.materias,name="materias"),
-    path ('registro_create/', views.registro_create, name="registro_create"),
+    # path ('registro_create/', views.registro_create, name="registro_create"),
 ]
