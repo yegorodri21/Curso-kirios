@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
+from django.db.models.base import Model
 
 class Curso(models.Model):
     curso_titulo=models.CharField(max_length=200)
@@ -12,21 +14,14 @@ class Curso(models.Model):
         return self.curso_titulo
 
 class Registrom (models.Model):
-    nombre=models.CharField(max_length=200)
-    apellido=models.CharField(max_length=200)
     cedula=models.CharField(max_length=10)
-    materia=models.CharField(max_length=200)
+    curso=models.ForeignKey(Curso,on_delete=models.CASCADE, null=True)
+    estudiante=models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     fecha=models.DateTimeField(
         "fecha de matricula", default=datetime.now())
+    costo=models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return '%s %s' % (self.nombre, self.apellido, self.cedula, self.materia, self.fecha)
+        return '%s %s' % (self.cedula, self.fecha)
 
-class Matriculados (models.Model):
-    materia=models.CharField(max_length=200)
-    cedula=models.CharField(max_length=10)
-    fecha=models.DateTimeField(
-        "fecha de matricula", default=datetime.now())
 
-    def __str__(self):
-        return self.Cedula

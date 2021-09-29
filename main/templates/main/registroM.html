@@ -1,7 +1,8 @@
 {% extends "main/principal.html" %} {% block content %}   
-
+{% load bootstrap4 %}
 <form action= "" method ="POST">
-     {% csrf_token %} {{form.as_p}}
+     {% csrf_token %} 
+     {%bootstrap_form form%}
      <button class="btn" type="submit">Registrar</button>
 </form>
 

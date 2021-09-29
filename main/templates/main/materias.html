@@ -12,11 +12,11 @@
           </thead>
 
           <tbody>
-               {% for mat in matricula %}
+               {% for mat in materias %}
                <tr>
-               <td>{{materia}}</td>
-               <td>{{cedula}}</td>
-               <td>{{Fecha}}</td>
+               <td>{{mat.materia}}</td>
+               <td>{{mat.cedula}}</td>
+               <td>{{mat.fecha}}</td>
                </tr>
                {% endfor %} 
           </tbody>
