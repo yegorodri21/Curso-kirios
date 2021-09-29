@@ -106,4 +106,4 @@ def modificar(request, id):
         }
         form = RegistromForm()
   
-    return render(request, "main/registroM.html", contexto)
+        return render(request, "main/registroM.html", contexto)
