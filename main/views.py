@@ -81,63 +81,59 @@ def curso_form(request):
 
 def registro_create(request, pk):
 
-    user_form = Usuario(prefix='form_user')
-    registro_form = RegistromForm(prefix='form_registro') 
-  
-    contexto = {
-        'user_form':Usuario,
-        'registro_form':RegistromForm
-       
+    contexto={
+        'form': Registrom()
     }
-
-    if request.method == 'POST':
-        user_form = Usuario(request.POST, prefix='form_registro')
-        registro_form = RegistromForm(request.POST, prefix='form_inscripcion')
-        
-        if user_form.is_valid() and registro_form.is_valid():
-            estudiante = user_form.save(commit=False)
-            estudiante.user = request.user
-            estudiante.save()
-            curso = Curso.objects.get(pk = pk)
-            matricula = registro_form.save(commit=False)
-            matricula.curso = curso
-            matricula.estudiante = estudiante
-            matricula.save()
-            return redirect('inscripciones:lista_estudiantes')
+    if request.method=='POST':
+        formulario=Registrom(contexto=request.POST, files =request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            contexto["mensaje"]="Matriculado con exito"
         else:
-            print('Error en los forms')
-            print(registro_form.errors)
-            messages.error(request, user_form.errors)
-            messages.error(request, registro_form.errors)
+            contexto["form"]=formulario
             
-    return render(request,'matricula/registroM.html', contexto) 
-
     # if request.method=='POST':
-    #     registro = RegistromForm(request.POST)
-
+    #     registro = Usuario(request.POST)
+    #     registro_form = RegistromForm(request.POST, prefix='form_inscripcion')
     #     if forms.is_valid():
     #         estudiante=Form.save()
     #         RegistromForm=form_registro.cleaned_data.get('Estudiante')
     #         messages.success(request, f"Estudiante registrado : {registroM}")
     #         return redirect("main:homepage")
     # else:
-    #     contexto={
-    #         'form_registro': form_registro,
-    #         'form_estudiante': form_estudiante,
+    #      contexto = {
+    #     'user_form':Usuario,
+    #     'registro_form':RegistromForm
+       
     #     }
     #     form = RegistromForm()
   
-    # return render(request, "matricula/registroM.html", contexto)
+    return render(request, "matricula/registroM.html", contexto)
 
 
 def modificar(request, id):
 
-        registro = get_object_or_404(Registrom, id =id)
-        # estudiante= 
-        contexto={
+        registro = get_object_or_404(Registrom, id=id)
+        data={
             'form_registro': RegistromForm(instance=registro),
-            'form_estudiante': form_estudiante(instance=estudiante),
         }
-        form = RegistromForm()
-  
-        return render(request, "matricula/registroM.html", contexto)
+        if request.method=='POST':
+            formulario=RegistromForm(data=request.POST,instance=registro, files=request.FILES)
+            if formulario.is_valid():
+                formulario.save()
+                return redirect(to="modificar")
+            data["form"]=formulario
+
+        return render(request, "matricula/modificar.html", data)
+
+def eliminar(request, id):
+    registro=get_object_or_404(Registrom,id=id)
+    registro.delete()
+    return redirect (to="eliminar")
+
+def materias (request):
+    materias =Registrom.object.all()
+    data={
+        'materias':materias
+    }
+    return render (request,"matricula/materias.html",data)
