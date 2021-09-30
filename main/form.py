@@ -27,6 +27,4 @@ class RegistromForm(forms.ModelForm):
         fields = [
             'cedula',
             'fecha',
-            
-
         ]

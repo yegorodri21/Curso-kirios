@@ -1,35 +1,27 @@
 {% extends "main/principal.html" %}
 {% block content %}
 
-<div>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li {% if message.tags %} class="{{message.tags}}"{% endif %}>
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Import: {% endif %}
-            {{ message }}
+<br>
+<br>
+<div class="row">
+    <div class="col-12 col-md-6 offse-md-3">
+        <div class="card">
+            <div class="card-body">
+                        <h2>Registro de Materia </h2>
+                        <hr>
+                <form action="" method="POST" enctype="multipart/form-data">
 
-        </li>
-        {% endfor%}
-    </ul>
-    {% endif %}
+                    {%csrf_token%}
+                    {{form | crispy}}
+                    <div class="d-flex justify-content-end">
+                        <input type ="reset" value="Cancelar" class="btn btn_secundary">
+                        &nbsp;
+                        <input type ="submit" value="Guardar" class="btn btn_primary">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </div>
-
-<form method="POST">
-    {% csrf_token %}
-    {{user_form.as_p}}
-    {{registro_form.as_p}}<br>
-    
-    <button type="submit">Crear y Editar</button>
-    
-</form>
-{% endblock %}
-<!-- {% extends "main/principal.html" %} {% block content %}   
-{% load bootstrap4 %}
-<form action= "" method ="POST">
-     {% csrf_token %} 
-     {%bootstrap_form form%}
-     <button class="btn" type="submit">Registrar</button>
-</form>
-
-{% endblock %} -->

@@ -12,6 +12,9 @@ urlpatterns =[
     path ('curso_form/', views.curso_form,name="curso_form"),
     path ('registro_create/<int:pk>/', views.registro_create, name="registro_create"),
 
-    # path ('materias/', views.materias,name="materias"),
+
+    path('modificar/<id>',views.modificar,name="modificar"),
+    path ('eliminar/<id>',views.eliminar,name="eliminar"),
+    path ('materias/', views.materias,name="materias"),
 
 ]
