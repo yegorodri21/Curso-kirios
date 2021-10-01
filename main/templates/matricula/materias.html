@@ -15,13 +15,13 @@
     </thead>
 
     <tbody>
-        {% r est in RegistromAdmin %}
+        {% for mat in materias %}
 
         <tr>  
-            <td>{{est.Id}}</td>    
-            <td>{{est.Curso}}</td>
-            <td>{{est.Estudiante}}</td> 
-            <td>{{est.Fecha}}</td>    
+            <td>{{mat.Id}}</td>    
+            <td>{{mat.Curso}}</td>
+            <td>{{mat.Estudiante}}</td> 
+            <td>{{mat.Fecha}}</td>    
             <td><a href="{% url 'modificar' est.id %}">Modificar</a>   <a href="{% url 'eliminar' est.id %}">Eliminar</a></td>
     
         </tr>

@@ -3,8 +3,9 @@
 
 <form action= "" method ="POST">
      {% csrf_token %} {{form.as_p}}
+     Si ya tienes una cuenta, ve a <a href="/login">Entrar</a>
+     <br> 
      <button class="btn" type="submit">Registrar</button>
 </form>
 
-Si ya tienes una cuenta, ve a <a href="/login">Entrar</a>
 {% endblock %}

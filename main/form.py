@@ -11,15 +11,13 @@ class NuevoCurso(forms.ModelForm):
 
 class Usuario(UserCreationForm):
     class Meta:
-        model = User
-        fields = [
-            'username',
-
-        ]
-        labels = {
-            'username': 'Nombre de usuario', 
-
-        }
+        model=User 
+        fields=['username',
+        'first_name',
+        'last_name',
+        'email',
+        'password1',
+        'password2']
 
 class RegistromForm(forms.ModelForm):
     class Meta:

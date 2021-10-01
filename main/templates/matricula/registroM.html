@@ -1,27 +1,26 @@
 {% extends "main/principal.html" %}
 {% block content %}
 
-<br>
-<br>
-<div class="row">
-    <div class="col-12 col-md-6 offse-md-3">
-        <div class="card">
-            <div class="card-body">
-                        <h2>Registro de Materia </h2>
-                        <hr>
-                <form action="" method="POST" enctype="multipart/form-data">
+<div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{message.tags}}"{% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Import: {% endif %}
+            {{ message }}
 
-                    {%csrf_token%}
-                    {{form | crispy}}
-                    <div class="d-flex justify-content-end">
-                        <input type ="reset" value="Cancelar" class="btn btn_secundary">
-                        &nbsp;
-                        <input type ="submit" value="Guardar" class="btn btn_primary">
-                    </div>
-                </form>
-
-            </div>
-        </div>
-
-    </div>
+        </li>
+        {% endfor%}
+    </ul>
+    {% endif %}
 </div>
+
+<form method="POST">
+    {% csrf_token %}
+    {{registro_form.as_p}}<br>
+    
+    <button class="btn" type="submit">Registrar</button>
+    
+</form>
+
+{% endblock %}
