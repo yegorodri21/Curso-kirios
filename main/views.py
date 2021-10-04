@@ -92,14 +92,13 @@ def curso_form(request):
 
     return render(request,  "main/cursos.html", contexto)
 
-def registro_create(request, pk):
-
+def registro_create (request, pk):
     registro_form = RegistromForm(prefix='form_registro') 
     contexto = {
         'registro_form':RegistromForm()  
     }
     if request.method == 'POST':
-        registro_form = RegistromForm(request.POST, prefix='form_inscripcion')
+        registro_form = RegistromForm(request.POST)
         
         if  registro_form.is_valid():
             curso = Curso.objects.get(pk = pk)
@@ -114,7 +113,23 @@ def registro_create(request, pk):
             
     return render(request,'matricula/registroM.html', contexto) 
 
+# def registro_create(request,pk):
+#    if request.method =="POST":
+#           form = RegistromForm(request.POS)
+#           if form.is_valid():
+#                usuario = form.save()
+#                nombre_usuario = form.cleaned_data.get('username')
+#                messages.success(request, f"Nueva Cuenta Creada: {nombre_usuario}")
+#                login(request, usuario)
+#                messages.info(request, f"Has sido logeado como: {nombre_usuario}")
+#                return redirect("main:homepage")
+#           else:
+#                for msg in form.error_messages:
+#                     messages.error(request, f"{msg}: form.error_messages[msg]")
 
+#     form = Usuario()
+#     return render(request, "main/registro.html", {"form": form})
+        
 def modificar(request, id):
 
         registro = get_object_or_404(Registrom, id=id)
@@ -125,7 +140,7 @@ def modificar(request, id):
             formulario=RegistromForm(data=request.POST,instance=registro, files=request.FILES)
             if formulario.is_valid():
                 formulario.save()
-                return redirect(to="modificar")
+                return redirect('materia:materias')
             data["form"]=formulario
 
         return render(request, "matricula/modificar.html", data)
@@ -138,8 +153,11 @@ def eliminar(request, id):
 
 
 def materias (request):
-    materias =Registrom.object.all()
+    materias =Registrom.objects.all()
     data={
-        'materias':materias
+        'curso_env':materias
     }
     return render (request,"matricula/materias.html",data)
+
+
+    

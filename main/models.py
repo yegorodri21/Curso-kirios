@@ -22,4 +22,4 @@ class Registrom (models.Model):
     costo=models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return '%s %s' % (self.cedula, self.fecha)
+        return '%s %s' % ( self.cedula, self.fecha)
