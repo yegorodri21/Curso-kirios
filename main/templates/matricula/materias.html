@@ -15,15 +15,16 @@
     </thead>
 
     <tbody>
-        {% for mat in cursos %}
+        {% for mat in materias %}
 
         <tr>  
-            <td>{{mat.Id}}</td>    
-            <td>{{mat.Curso}}</td>
-            <td>{{mat.Estudiante}}</td> 
-            <td>{{mat.Fecha}}</td>    
-            <td><a href="{% url 'modificar' est.id %}">Modificar</a>   <a href="{% url 'eliminar' est.id %}">Eliminar</a></td>
-    
+            <td>{{mat.id}}</td>    
+            <td>{{mat.curso}}</td>
+            <td>{{mat.estudiante}}</td> 
+            <td>{{mat.fecha}}</td>    
+            <td><a href="{% url 'main:modificar' mat.id %}" class="btn btn-infor ">Modificar</a>   
+                <a href="{% url 'main:eliminar' mat.id %}"  class="btn btn-danger ">Eliminar</a>
+            </td>
         </tr>
         {% endfor %}
 

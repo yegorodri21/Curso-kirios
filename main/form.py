@@ -9,7 +9,7 @@ class NuevoCurso(forms.ModelForm):
         model = Curso
         fields = '__all__'
 
-class Usuario(UserCreationForm):
+class UsuarioForm(UserCreationForm):
     class Meta:
         model=User 
         fields=['username',
@@ -25,4 +25,5 @@ class RegistromForm(forms.ModelForm):
         fields = [
             'cedula',
             'fecha',
+            'costo',
         ]

@@ -2,7 +2,7 @@ from django import forms
 from django.core.files.base import File
 from django.forms.forms import Form
 from django.http import request
-from main.form import NuevoCurso, RegistromForm, Usuario
+from main.form import NuevoCurso, RegistromForm, UsuarioForm
 from .models import Registrom
 import main
 from .models import Curso
@@ -19,22 +19,9 @@ def homepage (request):
     return render (request, "main/inicio.html", {"cursos": Curso.objects.all})
 
 def registro(request):
-    # data={
-    #     'form': UserCreationForm()
-    # }
-    # if request.method =='POST':
-    #     formulario=UserCreationForm(data=request.POST)
-    #     if formulario.is_valid():
-    #         formulario.save()
-    #         user=authenticate(username=formulario.cleaned_data["username"],password=formulario.cleaned_data["password"])
-    #         login(request,user)
-    #         messages.succes(request,"Te haz registrado correctamente")
-    #         return redirect("main:homepage")
-    #     data["form"]=formulario
-
-    #     return render(request, "main/registro.html",data)
+   
     if request.method =="POST":
-          form = Usuario(request.POST)
+          form = UsuarioForm(request.POST)
           if form.is_valid():
                usuario = form.save()
                nombre_usuario = form.cleaned_data.get('username')
@@ -46,7 +33,7 @@ def registro(request):
                for msg in form.error_messages:
                     messages.error(request, f"{msg}: form.error_messages[msg]")
 
-    form = Usuario()
+    form = UsuarioForm()
     return render(request, "main/registro.html", {"form": form})
         
 def logout_request(request):
@@ -87,75 +74,65 @@ def curso_form(request):
         'form' : form
         }
         if form.is_valid():
-               curso_form=form.save()
+               form.save()
                return redirect('main:homepage')
 
     return render(request,  "main/cursos.html", contexto)
 
-def registro_create (request, pk):
+def registro_create (request, curso_pk):
+    
+    usuario_form=UsuarioForm()
     registro_form = RegistromForm(prefix='form_registro') 
+
     contexto = {
-        'registro_form':RegistromForm()  
+        'usuario_form':usuario_form,
+        'registro_form':registro_form
     }
-    if request.method == 'POST':
+    if request.method == 'POST': 
+        usuario_form=UsuarioForm(request.POST)
         registro_form = RegistromForm(request.POST)
         
-        if  registro_form.is_valid():
-            curso = Curso.objects.get(pk = pk)
+        if  usuario_form.is_valid() and registro_form.is_valid():
+            estudiante = usuario_form.save(commit=False)
+            estudiante.user = request.user
+            estudiante.save()
+            curso = Curso.objects.get(curso_pk = curso_pk)
             matricula = registro_form.save(commit=False)
             matricula.curso = curso
             matricula.save()
-            return redirect('matricula:materias')
+            return redirect('main:materias')
         else:
             print('Error en los forms')
+            print(usuario_form.errors)
             print(registro_form.errors)
+            messages.error(request, usuario_form.errors)
             messages.error(request, registro_form.errors)
             
     return render(request,'matricula/registroM.html', contexto) 
-
-# def registro_create(request,pk):
-#    if request.method =="POST":
-#           form = RegistromForm(request.POS)
-#           if form.is_valid():
-#                usuario = form.save()
-#                nombre_usuario = form.cleaned_data.get('username')
-#                messages.success(request, f"Nueva Cuenta Creada: {nombre_usuario}")
-#                login(request, usuario)
-#                messages.info(request, f"Has sido logeado como: {nombre_usuario}")
-#                return redirect("main:homepage")
-#           else:
-#                for msg in form.error_messages:
-#                     messages.error(request, f"{msg}: form.error_messages[msg]")
-
-#     form = Usuario()
-#     return render(request, "main/registro.html", {"form": form})
         
 def modificar(request, id):
 
         registro = get_object_or_404(Registrom, id=id)
         data={
-            'form_registro': RegistromForm(instance=registro),
+            'form': RegistromForm(instance=registro)
         }
         if request.method=='POST':
             formulario=RegistromForm(data=request.POST,instance=registro, files=request.FILES)
             if formulario.is_valid():
                 formulario.save()
-                return redirect('materia:materias')
+                return redirect('main:materias')
             data["form"]=formulario
-
         return render(request, "matricula/modificar.html", data)
 
 def eliminar(request, id):
     registro=get_object_or_404(Registrom,id=id)
     registro.delete()
-    return redirect('materia:materias')
-    # return redirect (to="eliminar")
-
+    return redirect('main:materias')
 
 def materias (request):
     materias =Registrom.objects.all()
     data={
-        'curso_env':materias
+        'materias':materias
     }
     return render (request,"matricula/materias.html",data)
 

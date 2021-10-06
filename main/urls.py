@@ -10,7 +10,7 @@ urlpatterns =[
     path ('logout/', views.logout_request, name="logout"),
     path ('login/', views.login_request, name ="login"),
     path ('curso_form/', views.curso_form,name="curso_form"),
-    path ('registro_create/<int:pk>/', views.registro_create, name="registro_create"),
+    path ('registro_create/<int:curso_pk>/', views.registro_create, name="registro_create"),
 
 
     path('modificar/<id>',views.modificar,name="modificar"),

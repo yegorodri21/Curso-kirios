@@ -3,6 +3,7 @@
 
 <form method="POST">
     {% csrf_token %}
+    {{usuario_form.as_p}}
     {{registro_form.as_p}}<br>
     
     <button class="btn" type="submit">Registrar</button>
